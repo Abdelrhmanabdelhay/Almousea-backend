@@ -3,8 +3,7 @@ import * as service from "../services/media.service.js";
 export const create = async (req, res, next) => {
   try {
     const media = await service.create(req.body);
-    res.status(201).json(media,"Media item created successfully");
-
+    res.status(201).json({ success: true, data: media, message: "Media item created successfully" });
   } catch (err) {
     next(err);
   }
@@ -13,9 +12,7 @@ export const create = async (req, res, next) => {
 export const getAll = async (req, res, next) => {
   try {
     const data = await service.findAll();
-    res.json(
-        data,"Media items retrieved successfully"
-    );
+    res.json({ success: true, data: data, message: "Media items retrieved successfully" });
   } catch (err) {
     next(err);
   }
