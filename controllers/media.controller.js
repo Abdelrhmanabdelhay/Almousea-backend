@@ -24,7 +24,7 @@ export const getOne = async (req, res, next) => {
     if (!media) {
       return res.status(404).json({ message: "Media item not found" });
     }
-    res.json(media);
+    res.json({ success: true, data: media, message: "Media item retrieved successfully" });
   } catch (err) {
     next(err);
   }
@@ -36,7 +36,7 @@ export const update = async (req, res, next) => {
     if (!media) {
       return res.status(404).json({ message: "Media item not found" });
     }
-    res.json(media);
+    res.json({ success: true, data: media, message: "Media item updated successfully" });
   } catch (err) {
     next(err);
   }

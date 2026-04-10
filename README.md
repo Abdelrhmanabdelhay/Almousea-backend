@@ -137,7 +137,11 @@ http://localhost:5000/api
 **Response:** ✅ 200 OK
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "success": true,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  },
+  "message": "Login successful"
 }
 ```
 
@@ -169,6 +173,7 @@ curl -X POST http://localhost:5000/api/auth/login \
 **Response:** ✅ 200 OK
 ```json
 {
+  "success": true,
   "message": "Reset link was sent"
 }
 ```
@@ -199,6 +204,7 @@ curl -X POST http://localhost:5000/api/auth/forgot-password \
 **Response:** ✅ 200 OK
 ```json
 {
+  "success": true,
   "message": "Password reset successful"
 }
 ```
@@ -249,16 +255,20 @@ Content-Type: application/json
 **Response:** ✅ 201 Created
 ```json
 {
-  "_id": "507f1f77bcf86cd799439011",
-  "title": "Modern Residential Complex",
-  "image": "https://example.com/project1.jpg",
-  "description": "A state-of-the-art residential complex with modern amenities and sustainable design.",
-  "location": "Cairo, Egypt",
-  "numberOfLocations": 3,
-  "area": "50,000 sqm",
-  "facilities": ["Swimming Pool", "Gym", "Parking", "Security"],
-  "createdAt": "2026-04-10T10:30:00Z",
-  "updatedAt": "2026-04-10T10:30:00Z"
+  "success": true,
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "title": "Modern Residential Complex",
+    "image": "https://example.com/project1.jpg",
+    "description": "A state-of-the-art residential complex with modern amenities and sustainable design.",
+    "location": "Cairo, Egypt",
+    "numberOfLocations": 3,
+    "area": "50,000 sqm",
+    "facilities": ["Swimming Pool", "Gym", "Parking", "Security"],
+    "createdAt": "2026-04-10T10:30:00Z",
+    "updatedAt": "2026-04-10T10:30:00Z"
+  },
+  "message": "Project created successfully"
 }
 ```
 
@@ -291,20 +301,24 @@ Content-Type: application/json
 
 **Response:** ✅ 200 OK
 ```json
-[
-  {
-    "_id": "507f1f77bcf86cd799439011",
-    "title": "Modern Residential Complex",
-    "image": "https://example.com/project1.jpg",
-    "description": "A state-of-the-art residential complex...",
-    "location": "Cairo, Egypt",
-    "numberOfLocations": 3,
-    "area": "50,000 sqm",
-    "facilities": ["Swimming Pool", "Gym", "Parking", "Security"],
-    "createdAt": "2026-04-10T10:30:00Z",
-    "updatedAt": "2026-04-10T10:30:00Z"
-  }
-]
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439011",
+      "title": "Modern Residential Complex",
+      "image": "https://example.com/project1.jpg",
+      "description": "A state-of-the-art residential complex...",
+      "location": "Cairo, Egypt",
+      "numberOfLocations": 3,
+      "area": "50,000 sqm",
+      "facilities": ["Swimming Pool", "Gym", "Parking", "Security"],
+      "createdAt": "2026-04-10T10:30:00Z",
+      "updatedAt": "2026-04-10T10:30:00Z"
+    }
+  ],
+  "message": "Projects retrieved successfully"
+}
 ```
 
 **cURL:**
@@ -322,9 +336,13 @@ curl -X GET http://localhost:5000/api/projects \
 **Response:** ✅ 200 OK
 ```json
 {
-  "_id": "507f1f77bcf86cd799439011",
-  "title": "Modern Residential Complex",
-  ...
+  "success": true,
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "title": "Modern Residential Complex",
+    ...
+  },
+  "message": "Project retrieved successfully"
 }
 ```
 
@@ -362,9 +380,13 @@ Content-Type: application/json
 **Response:** ✅ 200 OK
 ```json
 {
-  "_id": "507f1f77bcf86cd799439011",
-  "title": "Updated Project Title",
-  ...
+  "success": true,
+  "data": {
+    "_id": "507f1f77bcf86cd799439011",
+    "title": "Updated Project Title",
+    ...
+  },
+  "message": "Project updated successfully"
 }
 ```
 
@@ -398,7 +420,7 @@ Authorization: Bearer <token>
 **Response:** ✅ 200 OK
 ```json
 {
-  "message": "Deleted successfully"
+  "message": "Project deleted successfully"
 }
 ```
 
@@ -514,17 +536,21 @@ curl -X POST http://localhost:5000/api/media \
 
 **Response:** ✅ 200 OK
 ```json
-[
-  {
-    "_id": "507f1f77bcf86cd799439012",
-    "title": "Project Gallery 2026",
-    "description": "Collection of photos and videos from our latest project showcase.",
-    "photos": [...],
-    "videos": [...],
-    "createdAt": "2026-04-10T11:00:00Z",
-    "updatedAt": "2026-04-10T11:00:00Z"
-  }
-]
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439012",
+      "title": "Project Gallery 2026",
+      "description": "Collection of photos and videos from our latest project showcase.",
+      "photos": [...],
+      "videos": [...],
+      "createdAt": "2026-04-10T11:00:00Z",
+      "updatedAt": "2026-04-10T11:00:00Z"
+    }
+  ],
+  "message": "Media items retrieved successfully"
+}
 ```
 
 **cURL:**
@@ -542,9 +568,13 @@ curl -X GET http://localhost:5000/api/media \
 **Response:** ✅ 200 OK
 ```json
 {
-  "_id": "507f1f77bcf86cd799439012",
-  "title": "Project Gallery 2026",
-  ...
+  "success": true,
+  "data": {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "Project Gallery 2026",
+    ...
+  },
+  "message": "Media item retrieved successfully"
 }
 ```
 
@@ -584,9 +614,13 @@ Content-Type: application/json
 **Response:** ✅ 200 OK
 ```json
 {
-  "_id": "507f1f77bcf86cd799439012",
-  "title": "Updated Gallery",
-  ...
+  "success": true,
+  "data": {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "Updated Gallery",
+    ...
+  },
+  "message": "Media item updated successfully"
 }
 ```
 
@@ -634,7 +668,205 @@ curl -X DELETE http://localhost:5000/api/media/507f1f77bcf86cd799439012 \
 
 ---
 
+## 📞 Contact Routes
+
+### Authorization
+Contact submission is public (anyone can contact you), but viewing/managing contacts requires authentication (admin only).
+
+### 1. Submit Contact Form
+
+**Endpoint:** `POST /api/contacts`
+
+**Description:** Submit a contact form message (public access)
+
+**Body:**
+```json
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "subject": "Project Inquiry",
+  "message": "I am interested in your residential complex project. Please provide more details about pricing and availability.",
+  "phone": "+201234567890"
+}
+```
+
+**Response:** ✅ 201 Created
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "subject": "Project Inquiry",
+    "message": "I am interested in your residential complex project...",
+    "phone": "+201234567890",
+    "status": "pending",
+    "createdAt": "2026-04-10T16:00:00Z",
+    "updatedAt": "2026-04-10T16:00:00Z"
+  },
+  "message": "Contact message sent successfully"
+}
+```
+
+**cURL:**
+```bash
+curl -X POST http://localhost:5000/api/contacts \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "subject": "Project Inquiry",
+    "message": "I am interested in your residential complex project. Please provide more details about pricing and availability.",
+    "phone": "+201234567890"
+  }'
+```
+
+---
+
+### 2. Get All Contacts
+
+**Endpoint:** `GET /api/contacts`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Description:** Get all contact messages (admin only)
+
+**Response:** ✅ 200 OK
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "507f1f77bcf86cd799439013",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "subject": "Project Inquiry",
+      "message": "I am interested in your residential complex...",
+      "phone": "+201234567890",
+      "status": "pending",
+      "createdAt": "2026-04-10T16:00:00Z",
+      "updatedAt": "2026-04-10T16:00:00Z"
+    }
+  ],
+  "message": "Contacts retrieved successfully"
+}
+```
+
+**cURL:**
+```bash
+curl -X GET http://localhost:5000/api/contacts \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+---
+
+### 3. Get Contact by ID
+
+**Endpoint:** `GET /api/contacts/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Description:** Get a specific contact message (admin only)
+
+**Response:** ✅ 200 OK
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "John Doe",
+    ...
+  },
+  "message": "Contact retrieved successfully"
+}
+```
+
+**cURL:**
+```bash
+curl -X GET http://localhost:5000/api/contacts/507f1f77bcf86cd799439013 \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+---
+
+### 4. Update Contact
+
+**Endpoint:** `PUT /api/contacts/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Description:** Update contact status or details (admin only)
+
+**Body:**
+```json
+{
+  "status": "read"
+}
+```
+
+**Response:** ✅ 200 OK
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "507f1f77bcf86cd799439013",
+    "name": "John Doe",
+    "status": "read",
+    ...
+  },
+  "message": "Contact updated successfully"
+}
+```
+
+**cURL:**
+```bash
+curl -X PUT http://localhost:5000/api/contacts/507f1f77bcf86cd799439013 \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -H "Content-Type: application/json" \
+  -d '{"status": "read"}'
+```
+
+---
+
+### 5. Delete Contact
+
+**Endpoint:** `DELETE /api/contacts/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Description:** Delete a contact message (admin only)
+
+**Response:** ✅ 200 OK
+```json
+{
+  "message": "Contact deleted successfully"
+}
+```
+
+**cURL:**
+```bash
+curl -X DELETE http://localhost:5000/api/contacts/507f1f77bcf86cd799439013 \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+---
+
 ## 🧪 Testing the API
+
 
 ### Using Postman
 

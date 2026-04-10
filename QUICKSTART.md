@@ -79,6 +79,25 @@ curl -X POST http://localhost:5000/api/media \
 curl http://localhost:5000/api/media
 ```
 
+### 6. Submit Contact Form
+```bash
+curl -X POST http://localhost:5000/api/contacts \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "subject": "Project Inquiry",
+    "message": "I am interested in your projects. Please contact me.",
+    "phone": "+201234567890"
+  }'
+```
+
+### 7. View Contacts (Admin Only)
+```bash
+curl -X GET http://localhost:5000/api/contacts \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
 ---
 
 ## 📚 Route Summary
@@ -98,6 +117,11 @@ curl http://localhost:5000/api/media
 | GET | `/api/media/:id` | ❌ | Get one media |
 | PUT | `/api/media/:id` | ✅ | Update media |
 | DELETE | `/api/media/:id` | ✅ | Delete media |
+| POST | `/api/contacts` | ❌ | Submit contact form |
+| GET | `/api/contacts` | ✅ | List all contacts (admin) |
+| GET | `/api/contacts/:id` | ✅ | Get one contact (admin) |
+| PUT | `/api/contacts/:id` | ✅ | Update contact (admin) |
+| DELETE | `/api/contacts/:id` | ✅ | Delete contact (admin) |
 
 ---
 

@@ -71,7 +71,11 @@ Content-Type: application/json
 **Expected Response:** 200 OK
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "success": true,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  },
+  "message": "Login successful"
 }
 ```
 
@@ -130,6 +134,7 @@ curl -X POST http://localhost:5000/api/auth/login \
 **Expected Response:** 200 OK
 ```json
 {
+  "success": true,
   "message": "Reset link was sent"
 }
 ```
@@ -170,16 +175,20 @@ Content-Type: application/json
 **Expected Response:** 201 Created
 ```json
 {
-  "_id": "660abc123def456789ghij",
-  "title": "Test Project Alpha",
-  "image": "https://via.placeholder.com/400x300?text=Project",
-  "description": "A comprehensive test project...",
-  "location": "Cairo, Egypt",
-  "numberOfLocations": 3,
-  "area": "50000 sqm",
-  "facilities": ["Swimming Pool", "Fitness Center", "Parking", "Security", "Garden"],
-  "createdAt": "2026-04-10T14:30:00.000Z",
-  "updatedAt": "2026-04-10T14:30:00.000Z"
+  "success": true,
+  "data": {
+    "_id": "660abc123def456789ghij",
+    "title": "Test Project Alpha",
+    "image": "https://via.placeholder.com/400x300?text=Project",
+    "description": "A comprehensive test project...",
+    "location": "Cairo, Egypt",
+    "numberOfLocations": 3,
+    "area": "50000 sqm",
+    "facilities": ["Swimming Pool", "Fitness Center", "Parking", "Security", "Garden"],
+    "createdAt": "2026-04-10T14:30:00.000Z",
+    "updatedAt": "2026-04-10T14:30:00.000Z"
+  },
+  "message": "Project created successfully"
 }
 ```
 
@@ -213,13 +222,17 @@ Content-Type: application/json
 
 **Expected Response:** 200 OK
 ```json
-[
-  {
-    "_id": "660abc123def456789ghij",
-    "title": "Test Project Alpha",
-    ...
-  }
-]
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "660abc123def456789ghij",
+      "title": "Test Project Alpha",
+      ...
+    }
+  ],
+  "message": "Projects retrieved successfully"
+}
 ```
 
 **cURL:**
@@ -235,9 +248,13 @@ curl http://localhost:5000/api/projects
 **Expected Response:** 200 OK
 ```json
 {
-  "_id": "660abc123def456789ghij",
-  "title": "Test Project Alpha",
-  ...
+  "success": true,
+  "data": {
+    "_id": "660abc123def456789ghij",
+    "title": "Test Project Alpha",
+    ...
+  },
+  "message": "Project retrieved successfully"
 }
 ```
 
@@ -271,6 +288,17 @@ Content-Type: application/json
 ```
 
 **Expected Response:** 200 OK
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "660abc123def456789ghij",
+    "title": "Test Project Alpha - Updated",
+    ...
+  },
+  "message": "Project updated successfully"
+}
+```
 
 **cURL:**
 ```bash
@@ -301,7 +329,7 @@ Authorization: Bearer {{token}}
 **Expected Response:** 200 OK
 ```json
 {
-  "message": "Deleted successfully"
+  "message": "Project deleted successfully"
 }
 ```
 
@@ -405,13 +433,17 @@ curl -X POST http://localhost:5000/api/media \
 
 **Expected Response:** 200 OK
 ```json
-[
-  {
-    "_id": "660xyz789ijk012mnopqr",
-    "title": "Project Gallery 2026",
-    ...
-  }
-]
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "660xyz789ijk012mnopqr",
+      "title": "Project Gallery 2026",
+      ...
+    }
+  ],
+  "message": "Media items retrieved successfully"
+}
 ```
 
 **cURL:**
@@ -425,6 +457,17 @@ curl http://localhost:5000/api/media
 **Endpoint:** `GET {{base_url}}/media/{{media_id}}`
 
 **Expected Response:** 200 OK
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "660xyz789ijk012mnopqr",
+    "title": "Project Gallery 2026",
+    ...
+  },
+  "message": "Media item retrieved successfully"
+}
+```
 
 **cURL:**
 ```bash
@@ -458,6 +501,17 @@ Content-Type: application/json
 ```
 
 **Expected Response:** 200 OK
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "660xyz789ijk012mnopqr",
+    "title": "Updated Gallery Title",
+    ...
+  },
+  "message": "Media item updated successfully"
+}
+```
 
 **cURL:**
 ```bash
@@ -497,7 +551,214 @@ curl -X DELETE http://localhost:5000/api/media/660xyz789ijk012mnopqr \
 
 ---
 
+## 📞 Scenario 4: Contact Form CRUD
+
+#### Test 4.1: Submit Contact Form (Public)
+**Endpoint:** `POST {{base_url}}/contacts`
+
+**Description:** Anyone can submit contact form without authentication
+
+**Body:**
+```json
+{
+  "name": "John Smith",
+  "email": "john.smith@example.com",
+  "subject": "Partnership Inquiry",
+  "message": "Hello, I am interested in partnering with your company for a new residential project in Alexandria. Please contact me to discuss the details.",
+  "phone": "+201234567890"
+}
+```
+
+**Expected Response:** 201 Created
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "660abc123def456789ghijk",
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "subject": "Partnership Inquiry",
+    "message": "Hello, I am interested in partnering...",
+    "phone": "+201234567890",
+    "status": "pending",
+    "createdAt": "2026-04-10T17:00:00.000Z",
+    "updatedAt": "2026-04-10T17:00:00.000Z"
+  },
+  "message": "Contact message sent successfully"
+}
+```
+
+**Save:** Copy `_id` to `contact_id` environment variable
+
+**cURL:**
+```bash
+curl -X POST http://localhost:5000/api/contacts \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "subject": "Partnership Inquiry",
+    "message": "Hello, I am interested in partnering with your company for a new residential project in Alexandria. Please contact me to discuss the details.",
+    "phone": "+201234567890"
+  }'
+```
+
+---
+
+#### Test 4.2: Get All Contacts (Admin Only)
+**Endpoint:** `GET {{base_url}}/contacts`
+
+**Headers:**
+```
+Authorization: Bearer {{token}}
+```
+
+**Expected Response:** 200 OK
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "660abc123def456789ghijk",
+      "name": "John Smith",
+      "email": "john.smith@example.com",
+      "subject": "Partnership Inquiry",
+      "message": "Hello, I am interested in partnering...",
+      "phone": "+201234567890",
+      "status": "pending",
+      "createdAt": "2026-04-10T17:00:00.000Z",
+      "updatedAt": "2026-04-10T17:00:00.000Z"
+    }
+  ],
+  "message": "Contacts retrieved successfully"
+}
+```
+
+**cURL:**
+```bash
+curl -X GET http://localhost:5000/api/contacts \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+---
+
+#### Test 4.3: Get Single Contact (Admin Only)
+**Endpoint:** `GET {{base_url}}/contacts/{{contact_id}}`
+
+**Headers:**
+```
+Authorization: Bearer {{token}}
+```
+
+**Expected Response:** 200 OK
+
+**cURL:**
+```bash
+curl -X GET http://localhost:5000/api/contacts/660abc123def456789ghijk \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+---
+
+#### Test 4.4: Update Contact Status (Admin Only)
+**Endpoint:** `PUT {{base_url}}/contacts/{{contact_id}}`
+
+**Headers:**
+```
+Authorization: Bearer {{token}}
+Content-Type: application/json
+```
+
+**Body:**
+```json
+{
+  "status": "read"
+}
+```
+
+**Expected Response:** 200 OK
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "660abc123def456789ghijk",
+    "name": "John Smith",
+    "status": "read",
+    ...
+  },
+  "message": "Contact updated successfully"
+}
+```
+
+**cURL:**
+```bash
+curl -X PUT http://localhost:5000/api/contacts/660abc123def456789ghijk \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -H "Content-Type: application/json" \
+  -d '{"status": "read"}'
+```
+
+---
+
+#### Test 4.5: Delete Contact (Admin Only)
+**Endpoint:** `DELETE {{base_url}}/contacts/{{contact_id}}`
+
+**Headers:**
+```
+Authorization: Bearer {{token}}
+```
+
+**Expected Response:** 200 OK
+```json
+{
+  "message": "Contact deleted successfully"
+}
+```
+
+**cURL:**
+```bash
+curl -X DELETE http://localhost:5000/api/contacts/660abc123def456789ghijk \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+---
+
+#### Test 4.6: Submit Contact Without Phone
+**Endpoint:** `POST {{base_url}}/contacts`
+
+**Body:**
+```json
+{
+  "name": "Jane Doe",
+  "email": "jane.doe@example.com",
+  "subject": "General Inquiry",
+  "message": "I would like to know more about your services."
+}
+```
+
+**Expected Response:** 201 Created (phone is optional)
+
+---
+
+#### Test 4.7: Submit Contact With Invalid Email
+**Endpoint:** `POST {{base_url}}/contacts`
+
+**Body:**
+```json
+{
+  "name": "Invalid User",
+  "email": "invalid-email",
+  "subject": "Test",
+  "message": "This should fail validation."
+}
+```
+
+**Expected Response:** 400 Bad Request
+
+---
+
 ## ❌ Error Testing
+
 
 ### Test: Missing Required Fields
 **Endpoint:** `POST {{base_url}}/projects`
@@ -581,6 +842,16 @@ Content-Type: application/json
   - [ ] Get single media
   - [ ] Update media
   - [ ] Delete media
+
+- [ ] **Contacts:**
+  - [ ] Submit contact form (public)
+  - [ ] Submit contact without phone (optional)
+  - [ ] Submit contact with invalid email (fails)
+  - [ ] Get all contacts (admin only)
+  - [ ] Get single contact (admin only)
+  - [ ] Update contact status (admin only)
+  - [ ] Delete contact (admin only)
+  - [ ] Public access to admin routes fails
 
 - [ ] **Error Handling:**
   - [ ] Invalid IDs return errors
